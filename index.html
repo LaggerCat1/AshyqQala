@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashyq Qala</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="header" id="home">
+    <nav class="menu-box">
+      <a class="menu-name" href="#home" aria-label="Ashyq Qala">
+        <img src="logo.png" alt="Ashyq Qala" width="78" />
+      </a>
+
+      <ul class="menu">
+        <li class="menu-item"><a href="#home">Главная</a></li>
+
+        <li class="menu-item has-submenu">
+          <a href="#mapBlock">Разделы</a>
+          <div class="submenu">
+            <a href="#mapBlock">Карта проблем</a>
+            <a href="#services">Возможности</a>
+            <a href="#how">Как работает</a>
+          </div>
+        </li>
+
+        <li class="menu-item"><a href="#contacts">Контакты</a></li>
+      </ul>
+
+      <div class="menu-actions">
+        <div class="menu-actions">
+  <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему"></button>
+  </div>
+        <a class="btn btn-ghost" href="#mapBlock">Открыть карту</a>
+        <a class="btn btn-primary" href="#auth">Войти</a>
+      </div>
+    </nav>
+
+    <!-- ВИДЕО-ЗАСТАВКА В HEADER (НЕ УДАЛЕНО) -->
+    <div class="video-bg" aria-hidden="true">
+      <video autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео.
+      </video>
+    </div>
+
+    <div class="hero">
+      <div class="hero-content">
+        <strong class="name">Ashyq Qala</strong>
+        <p class="slogan">Отмечай проблемы. Следи за решением. Улучшай город.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapBlock">Сообщить о проблеме</a>
+          <a class="btn btn-ghost" href="#services">Подробнее</a>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- КАРТА (БЕЗ API) -->
+    <section class="section" id="mapBlock">
+      <div class="container">
+        <div class="section-head row-between">
+          <div>
+            <h1 class="section-title">Карта проблем</h1>
+            <p class="section-subtitle">
+              Кликайте по карте, добавляйте метки, фильтруйте и отслеживайте статусы.
+            </p>
+          </div>
+
+          <div class="map-actions">
+  <button class="btn btn-primary" id="btnAddIssue">+ Добавить проблему</button>
+  <button class="btn btn-primary" id="btnClearAll">Очистить всё</button>
+          </div>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-wrap">
+            <div class="map-toolbar">
+              <div class="filters">
+                <label class="select">
+                  <span>Категория</span>
+                  <select id="filterCategory">
+                    <option value="all">Все</option>
+                    <option value="roads">Дороги</option>
+                    <option value="light">Освещение</option>
+                    <option value="trash">Мусор</option>
+                    <option value="eco">Экология</option>
+                    <option value="safety">Безопасность</option>
+                    <option value="other">Другое</option>
+                  </select>
+                </label>
+
+                <label class="select">
+                  <span>Статус</span>
+                  <select id="filterStatus">
+                    <option value="all">Все</option>
+                    <option value="new">Новая</option>
+                    <option value="work">В работе</option>
+                    <option value="done">Решена</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="hint">
+                Подсказка: клик по карте = поставить метку (если открыто окно добавления).
+              </div>
+            </div>
+
+            <!-- “Карта” без API: интерактивный канвас -->
+            <div id="mapCanvas" class="map-canvas" aria-label="Карта Астаны (условная)"></div>
+
+            <div class="map-footer">
+              <div class="small">
+                Это демонстрационная карта-канвас
+              </div>
+              <div class="small" id="statsLine">Загружаю...</div>
+            </div>
+          </div>
+
+          <aside class="panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Список заявок</h2>
+              <div class="panel-sub">Нажмите на заявку — подсветим метку.</div>
+            </div>
+
+            <div class="panel-list" id="issueList"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВОЗМОЖНОСТИ -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h1 class="section-title">Возможности платформы</h1>
+          <p class="section-subtitle">Подача заявок, мониторинг и аналитика для улучшения города.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <h2>Аналитика данных</h2>
+            <p>Сбор и анализ проблем по районам и категориям.</p>
+            <button class="btn btn-ghost">Подробнее</button>
+          </article>
+
+          <article class="card">
+            <h2>Краудсорсинг идей</h2>
+            <p>Предложения жителей и поддержка инициатив.</p>
+            <button class="btn btn-ghost">Подробнее</button>
+          </article>
+
+          <article class="card">
+            <h2>Мониторинг проблем</h2>
+            <p>Статусы заявок: новая → в работе → решена.</p>
+            <button class="btn btn-ghost">Подробнее</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- КАК РАБОТАЕТ -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head">
+          <h1 class="section-title">Как это работает</h1>
+          <p class="section-subtitle">Понятный процесс от обращения до результата.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">1. Житель отмечает проблему</div>
+          <div class="step">2. Данные собираются</div>
+          <div class="step">3. Анализ и приоритизация</div>
+          <div class="step">4. Исполнение и отчет</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты / Вход -->
+    <section class="section section-cta" id="contacts">
+      <div class="container cta">
+        <div class="cta-text">
+          <h1 class="section-title">Присоединяйтесь к нам!</h1>
+          <p class="section-subtitle">Задайте вопрос или начните с первой заявки на карте.</p>
+        </div>
+        <div class="cta-actions">
+          <button class="btn btn-primary" id="btnAsk">Задать вопрос</button>
+          <a class="btn btn-primary" href="#mapBlock">Открыть карту</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Заглушка “Вход” (позже подключишь к Flask/FastAPI) -->
+    <section class="section" id="auth">
+      <div class="container">
+        <div class="section-head">
+          <h1 class="section-title">Вход (заглушка)</h1>
+          <p class="section-subtitle">На MVP можно сделать форму, а позже подключить к серверу.</p>
+        </div>
+
+        <div class="auth">
+          <div class="auth-card">
+            <label class="field">
+              <span>Email</span>
+              <input type="email" placeholder="example@mail.com" />
+            </label>
+
+            <label class="field">
+              <span>Пароль</span>
+              <input type="password" placeholder="••••••••" />
+            </label>
+
+            <button class="btn btn-primary">Войти</button>
+            <button class="btn btn-ghost">Регистрация</button>
+          </div>
+
+          <div class="auth-note">
+            <h3>Что дальше</h3>
+            <p class="muted">
+              Когда начнёте backend: создаёте таблицу пользователей и выдаёте токен/сессию.
+              Сейчас это блок для внешнего вида.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модалка: добавление проблемы -->
+  <div class="modal" id="issueModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Добавить проблему">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title">Новая проблема</div>
+          <div class="modal-sub">Сначала выберите точку на карте, затем заполните форму.</div>
+        </div>
+        <button class="icon-btn" data-close="1" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="two">
+          <label class="field">
+            <span>Категория</span>
+            <select id="issueCategory">
+              <option value="roads">Дороги</option>
+              <option value="light">Освещение</option>
+              <option value="trash">Мусор</option>
+              <option value="eco">Экология</option>
+              <option value="safety">Безопасность</option>
+              <option value="other">Другое</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Статус</span>
+            <select id="issueStatus">
+              <option value="new">Новая</option>
+              <option value="work">В работе</option>
+              <option value="done">Решена</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Описание</span>
+          <textarea id="issueDesc" rows="4" placeholder="Например: большая яма на дороге возле школы..."></textarea>
+        </label>
+
+        <div class="coords">
+          <div class="small">Точка на карте:</div>
+          <div class="pill" id="coordsView">не выбрана</div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="1">Отмена</button>
+        <button class="btn btn-primary" id="btnSaveIssue" disabled>Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Добавляем после секции #services -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <h1 class="section-title">Категории проблем</h1>
+      <p class="section-subtitle">Выберите категорию, чтобы увидеть актуальные проблемы на карте.</p>
+    </div>
+    <div class="category-cards">
+      <button class="category-card" data-category="roads">
+        <img src="road.jpg" alt="Дороги" />
+        <span>Дороги</span>
+      </button>
+      <button class="category-card" data-category="trash">
+        <img src="trash.png" alt="Мусор" />
+        <span>Мусор</span>
+      </button>
+      <button class="category-card" data-category="light">
+        <img src="lamp.png" alt="Освещение" />
+        <span>Освещение</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <h1 class="section-title">FAQ</h1>
+      <p class="section-subtitle">Часто задаваемые вопросы по платформе.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Как добавить новую проблему?</div>
+        <div class="faq-answer">Нажмите кнопку «+ Добавить проблему», выберите точку на карте и заполните форму.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Где хранятся метки?</div>
+        <div class="faq-answer">Все метки хранятся в браузере, без внешнего сервера.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Можно ли фильтровать по категориям?</div>
+        <div class="faq-answer">Да, используйте фильтры сверху карты или кнопки категорий ниже.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="top-problems-grid">
+    <div class="card">
+        <h3>ТОП-3 категории (автоматически)</h3>
+        <ul id="top3List"></ul> </div>
+</div>
+
+
+<section class="analytics-section">
+    <h2>🔹 Аналитика проблем</h2>
+
+    <div class="top-problems-grid">
+        <div class="card top-card">
+            <h3>№1 Освещение</h3>
+            <p class="count">1,240</p>
+            <span>заявок за месяц</span>
+        </div>
+        <div class="card top-card">
+            <h3>№2 Дороги</h3>
+            <p class="count">980</p>
+            <span>заявок за месяц</span>
+        </div>
+        <div class="card top-card">
+            <h3>№3 Вывоз мусора</h3>
+            <p class="count">850</p>
+            <span>заявок за месяц</span>
+        </div>
+    </div>
+
+    <div class="main-analytics-grid">
+        <div class="card chart-container">
+            <h3>Проблемы по категориям</h3>
+          <canvas id="categoryChart" width="400" height="400"></canvas>
+        </div>
+
+        <div class="card district-list">
+            <h3>Проблемы по районам</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Район</th>
+                        <th>Кол-во</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Есильский</td>
+                        <td>452</td>
+                        <td class="status-bad">Критично</td>
+                    </tr>
+                    <tr>
+                        <td>Алматинский</td>
+                        <td>210</td>
+                        <td class="status-ok">Норма</td>
+                    </tr>
+                    <tr>
+                        <td>Сарайшык</td>
+                        <td>120</td>
+                        <td class="status-good">Стабильно</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+      <!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Левая часть -->
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="aqlogo.png" alt="aqlogo">
+        <span class="logo-text">Ashyq Qala</span>
+      </div>
+      <p class="footer-desc">
+        Платформа коллективного решения городских проблем на основе данных
+      </p>
+    </div>
+
+    <!-- Навигация -->
+    <div class="footer-nav">
+      <h4>Платформа</h4>
+      <ul>
+        <li><a href="#">О платформе</a></li>
+        <li><a href="#">Услуги</a></li>
+        <li><a href="#">Решения</a></li>
+      </ul>
+    </div>
+
+    <!-- Поддержка -->
+    <div class="footer-nav">
+      <h4>Поддержка</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Обратная связь</a></li>
+        <li><a href="#">Политика конфиденциальности</a></li>
+        <li><a href="#">Пользовательское соглашение</a></li>
+      </ul>
+    </div>
+
+    <!-- Контакты -->
+    <div class="footer-contacts">
+      <h4>Контакты</h4>
+      <p>Телефон: 87778886609</p>
+      <p>Email: support@ashyqqala.kz</p>
+      <p>Город: Астана</p>
+      <p>Адрес: ул. Манаса 10</p>
+      <p>Часы работы: 7:00-22:00</p>
+    </div>
+
+  <div class="footer-socials">
+  <div class="mnogosoc"> <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-link">
+      <img src="insta.logo.png" alt="Instagram" width="35px">
+      <span>Instagram</span>
+    </a>
+
+    <a href="https://tiktok.com/" target="_blank" rel="noopener" class="social-link">
+      <img src="tiktok.logo.png" alt="TikTok" width="35px">
+      <span>TikTok</span>
+    </a>
+
+    <a href="https://t.me/" target="_blank" rel="noopener" class="social-link">
+      <img src="telega.logo.png" alt="Telegram" width="35px">
+      <span>Telegram</span>
+    </a>
+
+  </div>
+</div>
+
+  <!-- Нижняя линия -->
+  <div class="footer-bottom">
+    © 2026 Ashyq Qala. Все права защищены.
+  </div>
+</footer>
+
+  <script src="map.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
